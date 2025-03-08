@@ -2,7 +2,7 @@
 	"name": "sinkparquet",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "AzureDataLakeStorage2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Imported",
-				"folderPath": "acgmsdirector",
+				"folderPath": "acgmsdirector/Imported",
 				"fileSystem": "taxidata"
 			},
 			"compressionCodec": "snappy"
