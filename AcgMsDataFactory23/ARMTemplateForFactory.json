@@ -243,6 +243,73 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "TaxiDataCSV",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Parquet1",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          RideId as string,",
+						"          VendorId as string,",
+						"          PickupTime as string,",
+						"          DropTime as string,",
+						"          PickupLocationId as string,",
+						"          DropLocationId as string,",
+						"          CabNumber as string,",
+						"          DriverLicenseNumber as string,",
+						"          PassengerCount as string,",
+						"          TripDistance as string,",
+						"          RateCodeId as string,",
+						"          PaymentType as string,",
+						"          TotalAmount as string,",
+						"          FareAmount as string,",
+						"          Extra as string,",
+						"          MtaTax as string,",
+						"          TipAmount as string,",
+						"          TollsAmount as string,",
+						"          ImprovementSurcharge as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source1",
+						"source1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TaxiDataCSV')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
+			]
 		}
 	]
 }
