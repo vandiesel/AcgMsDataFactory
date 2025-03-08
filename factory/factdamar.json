@@ -1,0 +1,9 @@
+{
+	"name": "factdamar",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d129f44a-5abb-4929-8df4-09a5c37c2ba4",
+		"tenantId": "84f1e4ea-8554-43e1-8709-f0b8589ea118"
+	}
+}
