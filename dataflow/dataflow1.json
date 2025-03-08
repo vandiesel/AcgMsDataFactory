@@ -1,0 +1,70 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TaxiDataCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Parquet1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "join1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          RideId as string,",
+				"          VendorId as string,",
+				"          PickupTime as string,",
+				"          DropTime as string,",
+				"          PickupLocationId as string,",
+				"          DropLocationId as string,",
+				"          CabNumber as string,",
+				"          DriverLicenseNumber as string,",
+				"          PassengerCount as string,",
+				"          TripDistance as string,",
+				"          RateCodeId as string,",
+				"          PaymentType as string,",
+				"          TotalAmount as string,",
+				"          FareAmount as string,",
+				"          Extra as string,",
+				"          MtaTax as string,",
+				"          TipAmount as string,",
+				"          TollsAmount as string,",
+				"          ImprovementSurcharge as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
