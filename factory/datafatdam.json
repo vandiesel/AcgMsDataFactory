@@ -1,0 +1,9 @@
+{
+	"name": "datafatdam",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3ca672bf-53c7-4b08-843b-e773d1006c95",
+		"tenantId": "84f1e4ea-8554-43e1-8709-f0b8589ea118"
+	}
+}
